@@ -154,7 +154,7 @@ export default function Dashboard() {
               </div>
             </div>
             <h1 className="text-5xl md:text-7xl font-bold text-white mb-6 transition-all duration-500 hover:scale-105">
-              Hi, I'm <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-400 to-red-400 transition-all duration-300">Pratik Shinde</span>
+              Hi, I&apos;m <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-400 to-red-400 transition-all duration-300">Pratik Shinde</span>
             </h1>
             <p className="text-xl md:text-2xl text-gray-300 mb-4 max-w-3xl mx-auto transition-all duration-500 hover:text-gray-200">
               Full Stack Developer
@@ -192,13 +192,13 @@ export default function Dashboard() {
           <div className="max-w-4xl mx-auto">
             <div className="bg-slate-900/50 border border-orange-500/20 rounded-xl p-8 transition-all duration-500 hover:border-orange-500/50 hover:shadow-xl hover:shadow-orange-500/20">
               <p className="text-gray-300 text-lg leading-relaxed mb-6 transition-all duration-300 hover:text-gray-100">
-                I'm a passionate Full Stack Developer currently working at Codiasticsoft, where I specialize in building scalable web applications using modern technologies like Next.js, React.js, Node.js, and Express.
+                I&apos;m a passionate Full Stack Developer currently working at Codiasticsoft, where I specialize in building scalable web applications using modern technologies like Next.js, React.js, Node.js, and Express.
               </p>
               <p className="text-gray-300 text-lg leading-relaxed mb-6 transition-all duration-300 hover:text-gray-100">
                 With expertise in both frontend and backend development, I focus on creating production-grade REST APIs, implementing secure authentication mechanisms, and designing responsive user interfaces that enhance the overall user experience.
               </p>
               <p className="text-gray-300 text-lg leading-relaxed transition-all duration-300 hover:text-gray-100">
-                I'm passionate about clean code, backend architecture, and staying updated with the latest web development trends. I believe in writing maintainable code and following modern coding standards to deliver high-quality solutions.
+                I&apos;m passionate about clean code, backend architecture, and staying updated with the latest web development trends. I believe in writing maintainable code and following modern coding standards to deliver high-quality solutions.
               </p>
             </div>
           </div>
@@ -444,9 +444,9 @@ export default function Dashboard() {
       {/* Contact Section */}
       <section id="contact" className="py-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-3xl mx-auto text-center">
-          <h2 className="text-4xl font-bold text-white mb-6 transition-all duration-500 hover:text-orange-400 hover:scale-105">Let's Work Together</h2>
+          <h2 className="text-4xl font-bold text-white mb-6 transition-all duration-500 hover:text-orange-400 hover:scale-105">Let&apos;s Work Together</h2>
           <p className="text-gray-300 text-lg mb-8 transition-all duration-300 hover:text-gray-100">
-            I'm always interested in hearing about new projects and opportunities. Feel free to reach out!
+            I&apos;m always interested in hearing about new projects and opportunities. Feel free to reach out!
           </p>
           <div className="flex flex-col sm:flex-row justify-center gap-4 mb-8">
             <a href="mailto:pratikshinde9957@gmail.com" className="inline-flex items-center justify-center space-x-2 px-8 py-4 bg-orange-600 hover:bg-orange-700 text-white rounded-full transition-all duration-300 transform hover:scale-110 hover:shadow-2xl hover:shadow-orange-500/50">
