@@ -174,7 +174,7 @@ export default function Dashboard() {
               <a href="https://github.com/pratiksshinde" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-orange-400 transition-all duration-300 transform hover:scale-125 hover:-translate-y-1">
                 <GitHubIcon sx={{ fontSize: 28 }} />
               </a>
-              <a href="https://linkedin.com/in/pratiksshinde" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-orange-400 transition-all duration-300 transform hover:scale-125 hover:-translate-y-1">
+              <a href="https://linkedin.com/in/pratik-s1000" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-orange-400 transition-all duration-300 transform hover:scale-125 hover:-translate-y-1">
                 <LinkedInIcon sx={{ fontSize: 28 }} />
               </a>
               <a href="mailto:pratikshinde9957@gmail.com" className="text-gray-400 hover:text-orange-400 transition-all duration-300 transform hover:scale-125 hover:-translate-y-1">
@@ -462,7 +462,7 @@ export default function Dashboard() {
             <a href="https://github.com/pratiksshinde" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-orange-400 transition-all duration-300 transform hover:scale-125 hover:-translate-y-1">
               <GitHubIcon sx={{ fontSize: 32 }} />
             </a>
-            <a href="https://linkedin.com/in/pratiksshinde" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-orange-400 transition-all duration-300 transform hover:scale-125 hover:-translate-y-1">
+            <a href="https://linkedin.com/in/pratik-s1000" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-orange-400 transition-all duration-300 transform hover:scale-125 hover:-translate-y-1">
               <LinkedInIcon sx={{ fontSize: 32 }} />
             </a>
             <a href="mailto:pratikshinde9957@gmail.com" className="text-gray-400 hover:text-orange-400 transition-all duration-300 transform hover:scale-125 hover:-translate-y-1">
