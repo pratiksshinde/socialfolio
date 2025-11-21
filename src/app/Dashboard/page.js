@@ -173,7 +173,7 @@ function Profile() {
               </div>
             </div>
             <h1 className="text-5xl md:text-7xl font-bold text-white mb-6 transition-all duration-500 hover:scale-105">
-              Hi, I'm{' '}
+              Hi, I&apos;m{' '}
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-400 to-red-400 transition-all duration-300">
                 {resumeData?.name}
               </span>
@@ -377,9 +377,9 @@ function Profile() {
       {/* Contact Section */}
       <section id="contact" className="py-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-3xl mx-auto text-center">
-          <h2 className="text-4xl font-bold text-white mb-6 transition-all duration-500 hover:text-orange-400 hover:scale-105">Let's Work Together</h2>
+          <h2 className="text-4xl font-bold text-white mb-6 transition-all duration-500 hover:text-orange-400 hover:scale-105">Let&apos;s Work Together</h2>
           <p className="text-gray-300 text-lg mb-8 transition-all duration-300 hover:text-gray-100">
-            I'm always interested in hearing about new projects and opportunities. Feel free to reach out!
+            I&apos;m always interested in hearing about new projects and opportunities. Feel free to reach out!
           </p>
           <div className="flex flex-col sm:flex-row justify-center gap-4 mb-8">
             <a 
