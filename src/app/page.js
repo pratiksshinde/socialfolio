@@ -109,7 +109,7 @@ export default function SocialFolio() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-slate-900 via-orange-900 to-slate-900 text-orange-400 p-6 relative overflow-hidden">
+    <div className="min-h-[100vh] max-h-[100vh] flex flex-col items-center justify-center bg-gradient-to-br from-slate-900 via-orange-900 to-slate-900 text-orange-400 p-6 relative overflow-hidden">
       {/* Animated Background Elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute top-0 left-0 w-96 h-96 bg-orange-500/10 rounded-full blur-3xl animate-pulse"></div>
