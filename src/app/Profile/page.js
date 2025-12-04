@@ -13,6 +13,7 @@ import PhoneIcon from '@mui/icons-material/Phone';
 import StorageIcon from '@mui/icons-material/Storage';
 import BuildIcon from '@mui/icons-material/Build';
 import DesignServicesIcon from '@mui/icons-material/DesignServices';
+import { getUserProfile } from '@/services/userService';
 
 function Profile() {
   const [resumeData, setResumeData] = useState(null);
@@ -29,12 +30,10 @@ function Profile() {
       setLoading(false);
     }
   }, []);
-  
+
   const fetchResumeData = async (userId) => {
     try {
-      const response = await fetch(`https://social-folio-backend-api.onrender.com/api/resume/${userId}`);
-      if (!response.ok) throw new Error('Failed to fetch resume data');
-      const data = await response.json();
+      const data = await getUserProfile(userId);
       setResumeData(data);
       setLoading(false);
     } catch (err) {
@@ -69,7 +68,7 @@ function Profile() {
         <div className="bg-gradient-to-br from-red-900/40 to-slate-900/40 backdrop-blur-xl border border-red-500/50 rounded-2xl p-8 max-w-md shadow-2xl shadow-red-500/20">
           <div className="text-6xl mb-4 text-center">⚠️</div>
           <p className="text-red-400 text-lg mb-6 text-center">Error: {error}</p>
-          <button 
+          <button
             onClick={fetchResumeData}
             className="w-full px-6 py-3 bg-gradient-to-r from-orange-500 to-red-500 text-white rounded-xl hover:from-orange-600 hover:to-red-600 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-orange-500/50 font-semibold"
           >
@@ -102,7 +101,7 @@ function Profile() {
   });
 
   const getCategoryIcon = (category) => {
-    switch(category) {
+    switch (category) {
       case 'frontend':
         return <CodeIcon sx={{ fontSize: 28 }} />;
       case 'backend':
@@ -128,9 +127,9 @@ function Profile() {
             </div>
             <div className="hidden md:flex space-x-8">
               {['About', 'Skills', 'Experience', 'Projects', 'Education', 'Contact'].map((item) => (
-                <button 
+                <button
                   key={item}
-                  onClick={() => scrollToSection(item.toLowerCase())} 
+                  onClick={() => scrollToSection(item.toLowerCase())}
                   className="text-gray-300 hover:text-orange-400 transition-all duration-300 hover:scale-110 font-medium relative group"
                 >
                   {item}
@@ -138,7 +137,7 @@ function Profile() {
                 </button>
               ))}
             </div>
-            <button 
+            <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               className="md:hidden text-white transition-transform duration-300 hover:scale-110 hover:text-orange-400"
             >
@@ -146,14 +145,14 @@ function Profile() {
             </button>
           </div>
         </div>
-        
+
         {/* Mobile Menu */}
         <div className={`md:hidden transition-all duration-500 ease-in-out overflow-hidden ${mobileMenuOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'}`}>
           <div className="px-4 pt-2 pb-4 space-y-2 bg-slate-900/95 backdrop-blur-md">
             {['About', 'Skills', 'Experience', 'Projects', 'Education', 'Contact'].map((item) => (
-              <button 
+              <button
                 key={item}
-                onClick={() => scrollToSection(item.toLowerCase())} 
+                onClick={() => scrollToSection(item.toLowerCase())}
                 className="block w-full text-left px-3 py-2 text-gray-300 hover:text-orange-400 hover:bg-orange-500/10 rounded-lg transition-all duration-300"
               >
                 {item}
@@ -185,44 +184,44 @@ function Profile() {
               {resumeData?.summary}
             </p>
             <div className="flex justify-center space-x-4 flex-wrap gap-4">
-              <button 
-                onClick={() => scrollToSection('contact')} 
+              <button
+                onClick={() => scrollToSection('contact')}
                 className="px-8 py-3 bg-orange-600 hover:bg-orange-700 text-white rounded-full transition-all duration-300 transform hover:scale-105 hover:shadow-lg hover:shadow-orange-500/50"
               >
                 Get In Touch
               </button>
-              <button 
-                onClick={() => scrollToSection('projects')} 
+              <button
+                onClick={() => scrollToSection('projects')}
                 className="px-8 py-3 bg-transparent border-2 border-orange-400 text-orange-400 hover:bg-orange-400 hover:text-white rounded-full transition-all duration-300 transform hover:scale-105 hover:shadow-lg hover:shadow-orange-400/50"
               >
                 View Work
               </button>
             </div>
             <div className="flex justify-center space-x-6 mt-8">
-              <a 
-                href={`mailto:${resumeData?.email}`} 
+              <a
+                href={`mailto:${resumeData?.email}`}
                 className="text-gray-400 hover:text-orange-400 transition-all duration-300 transform hover:scale-125 hover:-translate-y-1"
               >
                 <EmailIcon sx={{ fontSize: 28 }} />
               </a>
-              <a 
-                href={`tel:${resumeData?.phone}`} 
+              <a
+                href={`tel:${resumeData?.phone}`}
                 className="text-gray-400 hover:text-orange-400 transition-all duration-300 transform hover:scale-125 hover:-translate-y-1"
               >
                 <PhoneIcon sx={{ fontSize: 28 }} />
               </a>
-              <a 
-                href="https://github.com/pratiksshinde" 
-                target="_blank" 
-                rel="noopener noreferrer" 
+              <a
+                href="https://github.com/pratiksshinde"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="text-gray-400 hover:text-orange-400 transition-all duration-300 transform hover:scale-125 hover:-translate-y-1"
               >
                 <GitHubIcon sx={{ fontSize: 28 }} />
               </a>
-              <a 
-                href="https://linkedin.com/in/pratik-s1000" 
-                target="_blank" 
-                rel="noopener noreferrer" 
+              <a
+                href="https://linkedin.com/in/pratik-s1000"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="text-gray-400 hover:text-orange-400 transition-all duration-300 transform hover:scale-125 hover:-translate-y-1"
               >
                 <LinkedInIcon sx={{ fontSize: 28 }} />
@@ -250,12 +249,12 @@ function Profile() {
       <section id="skills" className="py-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
           <h2 className="text-4xl font-bold text-white mb-12 text-center transition-all duration-500 hover:text-orange-400 hover:scale-105">Skills & Technologies</h2>
-          
+
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
             {Object.entries(groupedSkills).map(([category, skills], idx) => {
               if (skills.length === 0) return null;
               return (
-                <div 
+                <div
                   key={category}
                   className="bg-slate-800/50 border border-orange-500/20 rounded-xl p-6 transition-all duration-500 hover:border-orange-500/50 hover:shadow-xl hover:shadow-orange-500/20 hover:scale-105"
                   style={{ transitionDelay: `${idx * 100}ms` }}
@@ -266,8 +265,8 @@ function Profile() {
                   </h3>
                   <div className="flex flex-wrap gap-2">
                     {skills.map((skill, index) => (
-                      <span 
-                        key={index} 
+                      <span
+                        key={index}
                         className="px-3 py-1 bg-orange-600/20 border border-orange-500/30 text-orange-300 rounded-full text-sm transition-all duration-300 hover:bg-orange-600/40 hover:border-orange-400 hover:scale-110 hover:shadow-lg hover:shadow-orange-500/30 cursor-default"
                         style={{ transitionDelay: `${index * 50}ms` }}
                       >
@@ -288,8 +287,8 @@ function Profile() {
           <h2 className="text-4xl font-bold text-white mb-12 text-center transition-all duration-500 hover:text-orange-400 hover:scale-105">Experience</h2>
           <div className="space-y-8 max-w-4xl mx-auto">
             {resumeData?.experience?.map((exp, index) => (
-              <div 
-                key={index} 
+              <div
+                key={index}
                 className="bg-slate-900/50 border border-orange-500/20 rounded-xl p-8 transition-all duration-500 hover:border-orange-500/50 hover:shadow-xl hover:shadow-orange-500/20 hover:scale-105"
                 style={{ transitionDelay: `${index * 150}ms` }}
               >
@@ -316,8 +315,8 @@ function Profile() {
           <h2 className="text-4xl font-bold text-white mb-12 text-center transition-all duration-500 hover:text-orange-400 hover:scale-105">Featured Projects</h2>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {resumeData?.projects?.map((project, index) => (
-              <div 
-                key={index} 
+              <div
+                key={index}
                 className="bg-slate-800/50 border border-orange-500/20 rounded-xl overflow-hidden hover:border-orange-500/50 transition-all duration-500 transform hover:-translate-y-3 hover:shadow-2xl hover:shadow-orange-500/20"
                 style={{ transitionDelay: `${index * 100}ms` }}
               >
@@ -329,8 +328,8 @@ function Profile() {
                   <p className="text-gray-400 mb-4 leading-relaxed transition-all duration-300 hover:text-gray-300">{project.description}</p>
                   <div className="flex flex-wrap gap-2">
                     {project.technologies?.map((tech, idx) => (
-                      <span 
-                        key={idx} 
+                      <span
+                        key={idx}
                         className="px-3 py-1 bg-orange-900/30 text-orange-300 rounded-full text-xs transition-all duration-300 hover:bg-orange-900/50 hover:scale-105"
                       >
                         {tech}
@@ -348,11 +347,11 @@ function Profile() {
       <section id="education" className="py-20 px-4 sm:px-6 lg:px-8 bg-slate-800/50">
         <div className="max-w-7xl mx-auto">
           <h2 className="text-4xl font-bold text-white mb-12 text-center transition-all duration-500 hover:text-orange-400 hover:scale-105">Education</h2>
-          
+
           <div className="space-y-6 max-w-4xl mx-auto">
             {resumeData?.education?.map((edu, index) => (
-              <div 
-                key={index} 
+              <div
+                key={index}
                 className="bg-slate-900/50 border border-orange-500/20 rounded-xl p-6 transition-all duration-500 hover:border-orange-500/50 hover:shadow-xl hover:shadow-orange-500/20 hover:scale-105"
                 style={{ transitionDelay: `${index * 100}ms` }}
               >
@@ -382,15 +381,15 @@ function Profile() {
             I&apos;m always interested in hearing about new projects and opportunities. Feel free to reach out!
           </p>
           <div className="flex flex-col sm:flex-row justify-center gap-4 mb-8">
-            <a 
-              href={`mailto:${resumeData?.email}`} 
+            <a
+              href={`mailto:${resumeData?.email}`}
               className="inline-flex items-center justify-center space-x-2 px-8 py-4 bg-orange-600 hover:bg-orange-700 text-white rounded-full transition-all duration-300 transform hover:scale-110 hover:shadow-2xl hover:shadow-orange-500/50"
             >
               <EmailIcon sx={{ fontSize: 20 }} />
               <span>{resumeData?.email}</span>
             </a>
-            <a 
-              href={`tel:${resumeData?.phone}`} 
+            <a
+              href={`tel:${resumeData?.phone}`}
               className="inline-flex items-center justify-center space-x-2 px-8 py-4 bg-transparent border-2 border-orange-400 text-orange-400 hover:bg-orange-400 hover:text-white rounded-full transition-all duration-300 transform hover:scale-110 hover:shadow-2xl hover:shadow-orange-400/50"
             >
               <PhoneIcon sx={{ fontSize: 20 }} />
