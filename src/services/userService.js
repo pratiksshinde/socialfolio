@@ -12,9 +12,9 @@ export const uploadResume = async (formData) => {
   }
 };
 
-export const getUserProfile = async (userId) => {
+export const getUserProfile = async () => {
   try {
-    const response = await Instance.get(`/resume/${userId}`);
+    const response = await Instance.get(`/resume/profile`);
     return response.data;
   } catch (error) {
     throw error?.response?.data || error;

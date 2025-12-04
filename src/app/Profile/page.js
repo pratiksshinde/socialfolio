@@ -22,18 +22,12 @@ function Profile() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   useEffect(() => {
-    const userId = localStorage.getItem("userId");
-    if (userId) {
-      fetchResumeData(userId);
-    } else {
-      setError("User not logged in or userId not found.");
-      setLoading(false);
-    }
+      fetchResumeData();
   }, []);
 
-  const fetchResumeData = async (userId) => {
+  const fetchResumeData = async () => {
     try {
-      const data = await getUserProfile(userId);
+      const data = await getUserProfile();
       setResumeData(data);
       setLoading(false);
     } catch (err) {
