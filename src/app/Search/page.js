@@ -8,7 +8,7 @@ import React, { useEffect, useState } from 'react'
 function Search() {
   const router = useRouter();
   const [search, setSearch] = useState("");
-  const [userData , setUserData] = useState([]);
+  const [userData , setUserData] = useState({});
   
   useEffect(() => {
     const fetchUsers = async ()=>{ 
