@@ -21,7 +21,7 @@ function Sidebar() {
         }
     }
   return (
-    <div className='flex absolute z-100'>
+    <div className='flex fixed z-100'>
         <div
     className={`
       h-screen 
