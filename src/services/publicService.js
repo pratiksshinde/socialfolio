@@ -2,9 +2,7 @@ import Instance from "./api"
 
 export const getProfile = async ({username})=>{
     try{
-    const response = await Instance.get("/public/profile" ,{
-        params: {username}
-    });
+    const response = await Instance.get(`/public/profile?username=${username}`)
     console.log(response,"profile hii");
     return response.data;
     }catch(error){
