@@ -5,6 +5,7 @@ export const getProfile = async ({username})=>{
     const response = await Instance.get("/public/getProfile" ,{
         params: {username}
     });
+    console.log(response,"profile hii");
     return response.data;
     }catch(error){
         throw error?.response?.data || error;
@@ -15,6 +16,7 @@ export const getUsers = async (search) => {
     const response = await Instance.get("public/get_users", {
       params: { search }
     });
+    console.log(response,"hiii")
     return response.data;
   } catch (error) {
     throw error?.response?.data || error;
