@@ -51,7 +51,7 @@ function Sidebar() {
           <Link href={"/Profile"}><div className="flex items-center gap-3"><Person2Outlined/> {open && "Profile"}</div></Link>
         </div>
         <div className='absolute bottom-5 p-4 flex gap-3 cursor-pointer'>
-            <Logout onClick={()=>{handleLogout}}/>
+            <Logout onClick={handleLogout}/>
             {open && "Logout"}
         </div>
     </div>
