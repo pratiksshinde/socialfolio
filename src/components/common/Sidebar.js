@@ -1,0 +1,47 @@
+"use client";
+
+import { Home, Person2Outlined, Search ,X , Menu} from '@mui/icons-material';
+import Link from 'next/link';
+import React from 'react'
+import { useState } from 'react';
+
+function Sidebar() {
+    const [open, setOpen] = useState(true);
+  return (
+    <div className='flex absolute z-100'>
+        <div
+    className={`
+      h-screen 
+      bg-gray-900/40 
+      backdrop-blur-md 
+      text-white 
+      transition-all 
+      duration-300 
+      border-r border-slate-700/40
+      ${open ? "w-60" : "w-16"}
+    `}
+  >
+         <div className="flex items-center justify-between p-4">
+          <h1 className={`font-bold text-lg transition-opacity ${open ? "opacity-100" : "opacity-0 hidden pointer-events-none"}`}>
+            SocialFolio
+          </h1>
+          <button onClick={() => setOpen(!open)}>
+            {open ? <X size={20} /> : <Menu size={20} />}
+          </button>
+        </div>
+
+         <div className="mt-4 space-y-2 flex flex-col gap-2 px-4">
+          {/* MENU ITEMS */}
+
+          <Link href={"/Feed"}><div className="flex items-center gap-3"><Home/> {open && "Dashboard"}</div></Link>
+          <Link href={"/Search"}><div className="flex items-center gap-3"><Search/> {open && "Search"}</div></Link>
+          <Link href={"/Profile"}><div className="flex items-center gap-3"><Person2Outlined/> {open && "Profile"}</div></Link>
+        </div>
+    
+    </div>
+    </div>
+    
+  )
+}
+
+export default Sidebar;

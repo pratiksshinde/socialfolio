@@ -41,4 +41,11 @@ export const register = async (username, email, password) => {
 };
 
 
-
+export const getProfile = async (username) => {
+  try{
+    const response = await Instance.get('/public/getProfile' , {username});
+    return response.data;
+  }catch (error){
+    throw error?.response?.data || error;
+  }
+};
