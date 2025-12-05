@@ -25,11 +25,11 @@ function Profile() {
 
   useEffect(() => {
     fetchResumeData(username);
-  }, []);
+  }, [username]);
 
   const fetchResumeData = async (username) => {
     try {
-      const data = await getProfile(username);
+      const data = await getProfile({ username });
       setResumeData(data);
       setLoading(false);
     } catch (err) {

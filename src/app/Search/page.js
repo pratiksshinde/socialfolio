@@ -8,30 +8,27 @@ import React, { useEffect, useState } from 'react'
 function Search() {
   const router = useRouter();
   const [search, setSearch] = useState("");
-  const [userData , setUserData] = useState({});
-  
+  const [userData, setUserData] = useState([]);
+
   useEffect(() => {
-    const fetchUsers = async ()=>{ 
-    if (!search.trim()){
+    const fetchUsers = async () => {
+      if (!search.trim()) {
         setUserData([]);
         return;
-    }
+      }
 
-    try{
+      try {
         const res = await getUsers(search);
         setUserData(res);
         console.log(res);
-    }catch(error){
+      } catch (error) {
         console.log(error);
-    }
+      }
     }
 
     fetchUsers();
-  console.log(userData);
 
-}, [search])
-  
-  console.log(userData);
+  }, [search])
 
   const handleFollow = (userId) => {
     console.log(userId);
