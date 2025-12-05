@@ -25,10 +25,13 @@ function Search() {
         console.log(error);
     }
     }
-    fetchUsers();
-  }, [search])
-  
 
+    fetchUsers();
+  console.log(userData);
+
+}, [search])
+  
+  console.log(userData);
 
   const handleFollow = (userId) => {
     console.log(userId);
