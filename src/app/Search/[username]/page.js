@@ -14,14 +14,17 @@ import StorageIcon from '@mui/icons-material/Storage';
 import BuildIcon from '@mui/icons-material/Build';
 import DesignServicesIcon from '@mui/icons-material/DesignServices';
 import { getProfile } from '@/services/publicService';
-import { useParams } from 'next/navigation';
+import { useSearchParams } from 'next/navigation';
+
 
 function Profile() {
   const [resumeData, setResumeData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const { username } = useParams();
+  
+  const searchParams = useSearchParams();
+  const username = searchParams.get('username');
 
   useEffect(() => {
     fetchResumeData(username);
@@ -65,7 +68,7 @@ function Profile() {
           <div className="text-6xl mb-4 text-center">⚠️</div>
           <p className="text-red-400 text-lg mb-6 text-center">Error: {error}</p>
           <button
-            onClick={fetchResumeData}
+            onClick={() => fetchResumeData(username)}
             className="w-full px-6 py-3 bg-gradient-to-r from-orange-500 to-red-500 text-white rounded-xl hover:from-orange-600 hover:to-red-600 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-orange-500/50 font-semibold"
           >
             Retry
