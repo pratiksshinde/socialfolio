@@ -20,6 +20,7 @@ function Search() {
     try{
         const res = await getUsers(search);
         setUserData(res);
+        console.log(res);
     }catch(error){
         console.log(error);
     }
