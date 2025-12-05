@@ -40,4 +40,13 @@ export const register = async (username, email, password) => {
   }
 };
 
+export const logout = async () =>{
+  try{
+    const response = await Instance.post('/user/logout');
+    return response.data;
+  }catch (error){
+    throw error?.response?.data || error;
+  }
+}
+
 

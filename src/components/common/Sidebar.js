@@ -1,12 +1,25 @@
 "use client";
 
-import { Home, Person2Outlined, Search ,X , Menu} from '@mui/icons-material';
+import { logout } from '@/services/userService';
+import { Home, Person2Outlined, Search ,X , Menu, Logout} from '@mui/icons-material';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import React from 'react'
 import { useState } from 'react';
+import { toast } from 'sonner';
 
 function Sidebar() {
     const [open, setOpen] = useState(true);
+    const route = useRouter();
+    const handleLogout = ()=>{
+        try{
+            logout();
+            toast("Logout Successfull");
+            route.push('/');
+        }catch(error){
+            toast(error);
+        }
+    }
   return (
     <div className='flex absolute z-100'>
         <div
@@ -37,7 +50,10 @@ function Sidebar() {
           <Link href={"/Search"}><div className="flex items-center gap-3"><Search/> {open && "Search"}</div></Link>
           <Link href={"/Profile"}><div className="flex items-center gap-3"><Person2Outlined/> {open && "Profile"}</div></Link>
         </div>
-    
+        <div className='absolute bottom-5 p-4 flex gap-3 cursor-pointer'>
+            <Logout onClick={()=>{handleLogout}}/>
+            {open && "Logout"}
+        </div>
     </div>
     </div>
     
