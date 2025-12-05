@@ -48,21 +48,24 @@ function Search() {
           />
 
           <div className='flex flex-col mt-7 h-140 mr-8 gap-3 p-3 pr-5 rounded-lg shadow-2xl overflow-y-auto '>
-            {userData.map((user => (
-              <div key={user.id} onClick={() => handleUser(user.username)}
-                className="flex items-center justify-between bg-slate-800/40 border border-orange-600 rounded-[32px] p-1">
-                {/* Avatar */}
-                <div className="flex items-center gap-3">
-                  <div className="rounded-full border-2 border-orange-500 p-2 w-10 h-10 flex items-center justify-center text-white font-bold">
-                    {user.initials}
-                  </div>
-                  <h2 className="text-white font-medium">{user.name}</h2>
-                </div>
+           {userData.map(user => {
+  const displayName = user.username;                  // Use username as display
+  const initials = user.username.slice(0, 2).toUpperCase();  // First 2 letters of username
 
-                {/* Add Icon */}
-                <PersonAddAlt1 className="text-orange-500 cursor-pointer mr-3" onClick={() => { handleFollow(user.id) }} />
-              </div>
-            )))}
+  return (
+    <div key={user.id} onClick={() => handleUser(user.username)}
+         className="flex items-center justify-between bg-slate-800/40 border border-orange-600 rounded-[32px] p-1">
+      <div className="flex items-center gap-3">
+        <div className="rounded-full border-2 border-orange-500 p-2 w-10 h-10 flex items-center justify-center text-white font-bold">
+          {initials}
+        </div>
+        <h2 className="text-white font-medium">{displayName}</h2>
+      </div>
+      <PersonAddAlt1 className="text-orange-500 cursor-pointer mr-3" onClick={() => handleFollow(user.id)} />
+    </div>
+  );
+})}
+
           </div>
         </div>
         <div className="flex flex-col mt-34 ml-7 w-[24%] gap-4">
