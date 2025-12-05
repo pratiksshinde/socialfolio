@@ -14,7 +14,7 @@ import StorageIcon from '@mui/icons-material/Storage';
 import BuildIcon from '@mui/icons-material/Build';
 import DesignServicesIcon from '@mui/icons-material/DesignServices';
 import { getProfile } from '@/services/publicService';
-import { useSearchParams } from 'next/navigation';
+import { useParams } from 'next/navigation';
 
 
 function Profile() {
@@ -22,13 +22,11 @@ function Profile() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  
-  const searchParams = useSearchParams();
-  const username = searchParams.get('username');
-
-  useEffect(() => {
-    fetchResumeData(username);
-  }, [username]);
+  const { username } = useParams();
+  console.log(username);
+ useEffect(() => {
+  if (username) fetchResumeData(username);
+}, [username]);
 
   const fetchResumeData = async (username) => {
     try {
