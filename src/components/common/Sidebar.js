@@ -1,7 +1,7 @@
 "use client";
 
 import { logout } from '@/services/userService';
-import { Home, Person2Outlined, Search ,X , Menu, Logout} from '@mui/icons-material';
+import { Home, Person2Outlined, Search ,X , Menu, Logout, ChevronRight, ChevronLeft} from '@mui/icons-material';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import React from 'react'
@@ -9,7 +9,8 @@ import { useState } from 'react';
 import { toast } from 'sonner';
 
 function Sidebar() {
-    const [open, setOpen] = useState(true);
+    const [open, setOpen] = useState(false);
+    const [hide, setHide] = useState(true);
     const route = useRouter();
     const handleLogout = ()=>{
         try{
@@ -21,7 +22,14 @@ function Sidebar() {
         }
     }
   return (
-    <div className='flex fixed z-100'>
+    <div className={` fixed z-100 flex`}>
+     <div onClick={()=>setHide(!hide)} className={` bg-gray-900/40 absolute py-5 z-3
+      backdrop-blur-md 
+      text-white 
+      rounded-lg
+      transition-all 
+      duration-300 
+      border-r border-slate-700/40 ${!hide ? "ml-14" : ""} ${open ? "hidden" : ""}`}>{hide ? <ChevronRight/> : <ChevronLeft/>}</div>
         <div
     className={`
       h-screen 
@@ -32,9 +40,10 @@ function Sidebar() {
       duration-300 
       border-r border-slate-700/40
       ${open ? "w-60" : "w-16"}
+      ${hide ? "-translate-x-full" : "translate-x-0"}
     `}
   >
-         <div className="flex items-center justify-between p-4">
+         <div className="flex items-center justify-between p-4 ">
           <h1 className={`font-bold text-lg transition-opacity ${open ? "opacity-100" : "opacity-0 hidden pointer-events-none"}`}>
             SocialFolio
           </h1>
