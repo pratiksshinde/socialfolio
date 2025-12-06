@@ -40,22 +40,13 @@ export const register = async (username, email, password) => {
   }
 };
 
-export const logout = async () => {
-  try {
+export const logout = async () =>{
+  try{
     const response = await Instance.post('/user/logout');
     return response.data;
-  } catch (error) {
+  }catch (error){
     throw error?.response?.data || error;
   }
 }
-
-export const checkResume = async () => {
-  try {
-    const response = await Instance.get('/resume/check_resume');
-    return response.data;
-  } catch (error) {
-    throw error?.response?.data || error;
-  }
-};
 
 
