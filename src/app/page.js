@@ -8,7 +8,7 @@ function SocialFolio() {
 
   return (
     <>
-    {token ? <Profile/> : <Login/> }
+    {token ? <Profile/> : <Login/> } 
     </>
   )
 }
