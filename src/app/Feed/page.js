@@ -97,11 +97,7 @@ function Feed() {
             >
               <div className="flex gap-3">
                 {/* Avatar */}
-                <img 
-                  src={string.avatar} 
-                  alt={string.name}
-                  className="w-12 h-12 rounded-full flex-shrink-0"
-                />
+                <div className='rounded-full h-10 w-10 bg-orange-800 flex items-center justify-center text-white font-bold'>{string.User?.username?.charAt(0)?.toUpperCase()}</div>
 
                 {/* Content */}
                 <div className="flex-1 min-w-0">
