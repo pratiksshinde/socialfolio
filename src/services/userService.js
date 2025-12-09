@@ -49,4 +49,11 @@ export const logout = async () =>{
   }
 }
 
-
+export const createPost = async (content) =>{
+  try{
+    const response = await Instance.post('/user/post',{content});
+    return response.data;
+  }catch(error){
+    throw error?.response?.data || error;
+  }
+}

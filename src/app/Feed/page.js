@@ -1,305 +1,29 @@
 "use client";
-import React, { useState } from 'react';
-import { Heart, MessageCircle, Repeat2, Share, MoreHorizontal, Sparkles, Image, Smile, Calendar } from 'lucide-react';
+import React, { useEffect, useState } from 'react';
+import { Heart, MessageCircle, Repeat2, Share, MoreHorizontal, Sparkles, Image, Smile, Calendar, Send } from 'lucide-react';
+import { getPosts } from '@/services/publicService';
+import { createPost } from '@/services/userService';
+import CommentList from '@/components/feed/CommentList';
+import { postComment } from '@/services/tweetService';
 
 function Feed() {
-  const [strings, setStrings] = useState([
-  {
-    id: 1,
-    username: "pratik_codes",
-    name: "Pratik Shinde",
-    avatar: "https://i.pravatar.cc/150?img=32",
-    content: "Just deployed my AI-powered portfolio! 🚀",
-    time: "2h",
-    likes: 14,
-    comments: 3,
-    retweets: 1,
-    liked: false
-  },
-  {
-    id: 2,
-    username: "dev_sam",
-    name: "Sam Patel",
-    avatar: "https://i.pravatar.cc/150?img=11",
-    content: "Learning Next.js 15 server actions. The DX is insane 🔥",
-    time: "4h",
-    likes: 27,
-    comments: 5,
-    retweets: 2,
-    liked: false
-  },
-  {
-    id: 3,
-    username: "tech_girl",
-    name: "Riya",
-    avatar: "https://i.pravatar.cc/150?img=5",
-    content: "2 AM coding sessions hit differently 😭💻",
-    time: "6h",
-    likes: 43,
-    comments: 8,
-    retweets: 4,
-    liked: false
-  },
-  {
-    id: 4,
-    username: "frontend_legend",
-    name: "Amit",
-    avatar: "https://i.pravatar.cc/150?img=22",
-    content: "Tailwind + Framer Motion = deadly combo 💯",
-    time: "1d",
-    likes: 91,
-    comments: 12,
-    retweets: 6,
-    liked: false
-  },
-
-  // ---------- MORE TWEETS BELOW ----------
-
-  {
-    id: 5,
-    username: "cloud_guru",
-    name: "Arnav",
-    avatar: "https://i.pravatar.cc/150?img=51",
-    content: "AWS bills feel like gambling 🎰",
-    time: "1h",
-    likes: 18,
-    comments: 2,
-    retweets: 1,
-    liked: false
-  },
-  {
-    id: 6,
-    username: "design_disha",
-    name: "Disha",
-    avatar: "https://i.pravatar.cc/150?img=47",
-    content: "UI is not UX. And UX is not UI. Stop mixing. 😑",
-    time: "3h",
-    likes: 36,
-    comments: 6,
-    retweets: 3,
-    liked: false
-  },
-  {
-    id: 7,
-    username: "backend_bhai",
-    name: "Rohit",
-    avatar: "https://i.pravatar.cc/150?img=17",
-    content: "SQL > NoSQL for 90% of projects. Fight me.",
-    time: "30m",
-    likes: 55,
-    comments: 9,
-    retweets: 4,
-    liked: false
-  },
-  {
-    id: 8,
-    username: "react_queen",
-    name: "Sneha",
-    avatar: "https://i.pravatar.cc/150?img=12",
-    content: "Finally understood useCallback after 2 years 😭",
-    time: "50m",
-    likes: 29,
-    comments: 4,
-    retweets: 1,
-    liked: false
-  },
-  {
-    id: 9,
-    username: "bug_hunter",
-    name: "Karan",
-    avatar: "https://i.pravatar.cc/150?img=28",
-    content: "Fixed a bug I created 6 months ago. Pathetic.",
-    time: "7h",
-    likes: 71,
-    comments: 10,
-    retweets: 2,
-    liked: false
-  },
-  {
-    id: 10,
-    username: "ml_maniac",
-    name: "Nidhi",
-    avatar: "https://i.pravatar.cc/150?img=39",
-    content: "Training models on Google Colab like it’s free GPU 🤝",
-    time: "2d",
-    likes: 64,
-    comments: 7,
-    retweets: 5,
-    liked: false
-  },
-  {
-    id: 11,
-    username: "chaiCoder",
-    name: "Harsh",
-    avatar: "https://i.pravatar.cc/150?img=7",
-    content: "Chai + VSCode = peak productivity.",
-    time: "25m",
-    likes: 12,
-    comments: 1,
-    retweets: 0,
-    liked: false
-  },
-  {
-    id: 12,
-    username: "system_architect",
-    name: "Vikas",
-    avatar: "https://i.pravatar.cc/150?img=23",
-    content: "Microservices increase complexity. Use only if needed.",
-    time: "8h",
-    likes: 82,
-    comments: 14,
-    retweets: 6,
-    liked: false
-  },
-  {
-    id: 13,
-    username: "lazy_dev",
-    name: "Kabir",
-    avatar: "https://i.pravatar.cc/150?img=44",
-    content: "I copy-paste code but at least I paste with confidence.",
-    time: "12m",
-    likes: 20,
-    comments: 3,
-    retweets: 1,
-    liked: false
-  },
-  {
-    id: 14,
-    username: "anime_engineer",
-    name: "Miku",
-    avatar: "https://i.pravatar.cc/150?img=48",
-    content: "Coding with anime OST hits harder.",
-    time: "22m",
-    likes: 33,
-    comments: 2,
-    retweets: 1,
-    liked: false
-  },
-  {
-    id: 15,
-    username: "linux_lover",
-    name: "Farhan",
-    avatar: "https://i.pravatar.cc/150?img=64",
-    content: "Switched to Arch btw.",
-    time: "3d",
-    likes: 88,
-    comments: 11,
-    retweets: 7,
-    liked: false
-  },
-  {
-    id: 16,
-    username: "crypto_coder",
-    name: "Jay",
-    avatar: "https://i.pravatar.cc/150?img=34",
-    content: "Crypto market crashing but my code still compiles 🧊",
-    time: "1d",
-    likes: 52,
-    comments: 5,
-    retweets: 3,
-    liked: false
-  },
-  {
-    id: 17,
-    username: "typescript_simp",
-    name: "Aarav",
-    avatar: "https://i.pravatar.cc/150?img=15",
-    content: "TS saved me from 100 runtime errors today.",
-    time: "5h",
-    likes: 77,
-    comments: 8,
-    retweets: 4,
-    liked: false
-  },
-  {
-    id: 18,
-    username: "noob_programmer",
-    name: "Jayesh",
-    avatar: "https://i.pravatar.cc/150?img=52",
-    content: "Why is regex so damn weird?",
-    time: "18h",
-    likes: 34,
-    comments: 4,
-    retweets: 1,
-    liked: false
-  },
-  {
-    id: 19,
-    username: "api_addict",
-    name: "Meera",
-    avatar: "https://i.pravatar.cc/150?img=18",
-    content: "Postman is my safe space.",
-    time: "40m",
-    likes: 41,
-    comments: 6,
-    retweets: 2,
-    liked: false
-  },
-  {
-    id: 20,
-    username: "fitness_coder",
-    name: "Aditya",
-    avatar: "https://i.pravatar.cc/150?img=14",
-    content: "Gym + Code = solid life.",
-    time: "55m",
-    likes: 22,
-    comments: 1,
-    retweets: 1,
-    liked: false
-  },
-  {
-    id: 21,
-    username: "startup_dude",
-    name: "Kunal",
-    avatar: "https://i.pravatar.cc/150?img=36",
-    content: "Building my SaaS MVP this weekend 💪",
-    time: "1h",
-    likes: 63,
-    comments: 9,
-    retweets: 3,
-    liked: false
-  },
-  {
-    id: 22,
-    username: "deepthinker",
-    name: "Shivam",
-    avatar: "https://i.pravatar.cc/150?img=10",
-    content: "Rest is a part of productivity. Don't ignore it.",
-    time: "14h",
-    likes: 58,
-    comments: 4,
-    retweets: 2,
-    liked: false
-  },
-  {
-    id: 23,
-    username: "coding_monk",
-    name: "Sagar",
-    avatar: "https://i.pravatar.cc/150?img=21",
-    content: "When the code works on the 1st try… it scares me.",
-    time: "9m",
-    likes: 17,
-    comments: 1,
-    retweets: 0,
-    liked: false
-  },
-  {
-    id: 24,
-    username: "js_master",
-    name: "Rahul",
-    avatar: "https://i.pravatar.cc/150?img=31",
-    content: "JavaScript will forever be chaos but I love it ❤️",
-    time: "3h",
-    likes: 44,
-    comments: 6,
-    retweets: 2,
-    liked: false
-  }
-]);
-
-
+  const [strings, setStrings] = useState([]);
   const [newString, setNewString] = useState('');
+  const [activeComments, setActiveComments] = useState({});
+  const [commentInputs, setCommentInputs] = useState({});
 
+  useEffect(() => {
+    const fetchPosts = async ()=>{
+      try{
+        const data = await getPosts();
+        setStrings(data.response);
+      }catch(error){
+         console.error("Error fetching posts:", error);
+      }
+    }
+    fetchPosts();
+  }, [])
+  
   const handleLike = (id) => {
     setStrings(strings.map(string => 
       string.id === id 
@@ -308,21 +32,46 @@ function Feed() {
     ));
   };
 
+  const toggleComments = (id) => {
+    setActiveComments(prev => ({
+      ...prev,
+      [id]: !prev[id]
+    }));
+  };
+
+  const handleCommentChange = (postId, value) => {
+    setCommentInputs(prev => ({
+      ...prev,
+      [postId]: value
+    }));
+  };
+
+  const handlePostComment = (postId) => {
+    const commentText = commentInputs[postId]?.trim();
+    if (commentText) {
+      postComment(postId , commentText);
+      console.log("Posting comment:", commentText, "to post:", postId);
+      setCommentInputs(prev => ({
+        ...prev,
+        [postId]: ''
+      }));
+    }
+  };
+
   const handlePostString = () => {
     if (newString.trim()) {
       const newPost = {
-        id: strings.length + 1,
-        username: "you",
-        name: "You",
-        avatar: "https://i.pravatar.cc/150?img=68",
         content: newString,
-        time: "now",
-        likes: 0,
-        comments: 0,
-        retweets: 0,
-        liked: false
+        User: {
+        username: "You",        
+      },
       };
       setStrings([newPost, ...strings]);
+      try{
+        createPost(newString);
+      }catch(error){
+        console.log("error while posing string :",error);
+      }
       setNewString('');
     }
   };
@@ -340,11 +89,11 @@ function Feed() {
       {/* Content Container */}
       <div className="max-w-7xl mx-auto flex gap-14 ml-60 px-4">
         {/* Feed Container */}
-        <div className="flex-1 max-w-2xl mt-6 ">
+        <div className="flex-1 max-w-2xl mt-6">
           {strings.map((string) => (
             <div 
               key={string.id} 
-              className="border-b border-orange-900/30 rounded-lg px-4 py-3 hover:bg-slate-800/50 transition-colors cursor-pointer backdrop-blur-sm mb-2"
+              className="border-b border-orange-900/30 rounded-lg px-4 py-3 hover:bg-slate-800/50 transition-colors backdrop-blur-sm mb-2"
             >
               <div className="flex gap-3">
                 {/* Avatar */}
@@ -359,10 +108,10 @@ function Feed() {
                   {/* Header */}
                   <div className="flex items-start justify-between gap-2 mb-1">
                     <div className="flex items-center gap-2 flex-wrap">
-                      <span className="font-bold hover:underline">{string.name}</span>
-                      <span className="text-gray-400">@{string.username}</span>
+                      {/* <span className="font-bold hover:underline">{string.name}</span> */}
+                      <span className="text-gray-400">@{string.User.username }</span>
                       <span className="text-gray-400">·</span>
-                      <span className="text-gray-400">{string.time}</span>
+                      <span className="text-gray-400">{string.createdAt}</span>
                     </div>
                     <button className="text-gray-400 hover:text-orange-400 hover:bg-orange-400/10 rounded-full p-1 transition-colors">
                       <MoreHorizontal className="w-5 h-5" />
@@ -374,11 +123,14 @@ function Feed() {
 
                   {/* Actions */}
                   <div className="flex items-center justify-between max-w-md">
-                    <button className="flex items-center gap-2 text-gray-400 hover:text-blue-400 group transition-colors">
+                    <button  
+                      onClick={() => toggleComments(string.id)}
+                      className="flex items-center gap-2 text-gray-400 hover:text-blue-400 group transition-colors"
+                    >
                       <div className="group-hover:bg-blue-400/10 rounded-full p-2 transition-colors">
                         <MessageCircle className="w-[18px] h-[18px]" />
                       </div>
-                      <span className="text-sm">{string.comments}</span>
+                      <span className="text-sm">{string.commentCount || 0}</span>
                     </button>
 
                     <button className="flex items-center gap-2 text-gray-400 hover:text-green-400 group transition-colors">
@@ -401,7 +153,7 @@ function Feed() {
                           className={`w-[18px] h-[18px] ${string.liked ? 'fill-current' : ''}`}
                         />
                       </div>
-                      <span className="text-sm">{string.likes}</span>
+                      {/* <span className="text-sm">{string.likes}</span> */}
                     </button>
 
                     <button className="flex items-center gap-2 text-gray-400 hover:text-orange-400 group transition-colors">
@@ -410,6 +162,40 @@ function Feed() {
                       </div>
                     </button>
                   </div>
+
+                  {/* Comment Section */}
+                  {activeComments[string.id] && (
+                    <div className="mt-4 space-y-3">
+                      {/* Comment Input */}
+                      <div className="flex gap-3 items-start">
+                        <img 
+                          src="https://i.pravatar.cc/150?img=68" 
+                          alt="You"
+                          className="w-8 h-8 rounded-full flex-shrink-0"
+                        />
+                        <div className="flex-1 flex gap-2">
+                          <input
+                            type="text"
+                            placeholder="Write a comment..."
+                            value={commentInputs[string.id] || ''}
+                            onChange={(e) => handleCommentChange(string.id, e.target.value)}
+                            onKeyPress={(e) => e.key === 'Enter' && handlePostComment(string.id)}
+                            className="flex-1 bg-slate-800/50 border border-orange-900/30 rounded-full px-4 py-2 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-orange-500/50"
+                          />
+                          <button
+                            onClick={() => handlePostComment(string.id)}
+                            disabled={!commentInputs[string.id]?.trim()}
+                            className="bg-orange-500 hover:bg-orange-600 disabled:bg-gray-600 disabled:cursor-not-allowed rounded-full p-2 transition-colors"
+                          >
+                            <Send className="w-4 h-4" />
+                          </button>
+                        </div>
+                      </div>
+                      
+                      {/* Comments List */}
+                      <CommentList postId={string.id} />
+                    </div>
+                  )}
                 </div>
               </div>
             </div>
