@@ -1,16 +1,19 @@
 "use client";
 import React, { useEffect, useState } from 'react';
-import { Heart, MessageCircle, Repeat2, Share, MoreHorizontal, Sparkles, Image, Smile, Calendar, Send } from 'lucide-react';
+import { Heart, MessageCircle, Repeat2, Share, MoreHorizontal, Sparkles, Image, Smile, Calendar, Send, Loader2 } from 'lucide-react';
 import { getPosts } from '@/services/publicService';
 import { createPost } from '@/services/userService';
 import CommentList from '@/components/feed/CommentList';
-import { postComment } from '@/services/tweetService';
+import { postComment, postLike } from '@/services/tweetService';
 
 function Feed() {
   const [strings, setStrings] = useState([]);
   const [newString, setNewString] = useState('');
   const [activeComments, setActiveComments] = useState({});
   const [commentInputs, setCommentInputs] = useState({});
+  const [loading, setLoading] = useState(false);
+  const [refetch, setRefetch] = useState(false);
+  const [refetchComments ,setRefetchComments] = useState(1);
 
   useEffect(() => {
     const fetchPosts = async ()=>{
@@ -22,9 +25,10 @@ function Feed() {
       }
     }
     fetchPosts();
-  }, [])
+  }, [refetch])
   
-  const handleLike = (id) => {
+  const handleLike = async(id) => {
+    await postLike(id);
     setStrings(strings.map(string => 
       string.id === id 
         ? { ...string, liked: !string.liked, likes: string.liked ? string.likes - 1 : string.likes + 1 }
@@ -46,35 +50,58 @@ function Feed() {
     }));
   };
 
-  const handlePostComment = (postId) => {
+  const handlePostComment = async(postId) => {
     const commentText = commentInputs[postId]?.trim();
     if (commentText) {
-      postComment(postId , commentText);
-      console.log("Posting comment:", commentText, "to post:", postId);
+      await postComment(postId , commentText);
       setCommentInputs(prev => ({
         ...prev,
         [postId]: ''
       }));
     }
+    setRefetchComments(refetchComments+1);
   };
 
-  const handlePostString = () => {
+  const handlePostString = async() => {
+    setLoading(true);
     if (newString.trim()) {
       const newPost = {
         content: newString,
         User: {
-        username: "You",        
+        username: "Posting...",        
       },
       };
       setStrings([newPost, ...strings]);
       try{
-        createPost(newString);
+        await createPost(newString);
+        setRefetch(prev => !prev);
       }catch(error){
         console.log("error while posing string :",error);
       }
       setNewString('');
     }
+    setLoading(false);
   };
+
+  const formatDateTime = (isoString) => {
+  const dateObj = new Date(isoString);
+
+  // Format date (YYYY-MM-DD)
+  const date = dateObj.toLocaleDateString("en-GB", {
+    day: "2-digit",
+    month: "2-digit",
+    year: "numeric",
+  });
+
+  // Format time (12-hour)
+  const time = dateObj.toLocaleTimeString("en-US", {
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: true,
+  });
+
+  return { date, time };
+};
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-orange-900 to-slate-900 text-white">
@@ -90,7 +117,10 @@ function Feed() {
       <div className="max-w-7xl mx-auto flex gap-14 ml-60 px-4">
         {/* Feed Container */}
         <div className="flex-1 max-w-2xl mt-6">
-          {strings.map((string) => (
+      
+          {strings.map((string) => {
+            const { date, time } = formatDateTime(string.createdAt);
+            return (
             <div 
               key={string.id} 
               className="border-b border-orange-900/30 rounded-lg px-4 py-3 hover:bg-slate-800/50 transition-colors backdrop-blur-sm mb-2"
@@ -103,11 +133,11 @@ function Feed() {
                 <div className="flex-1 min-w-0">
                   {/* Header */}
                   <div className="flex items-start justify-between gap-2 mb-1">
-                    <div className="flex items-center gap-2 flex-wrap">
+                    <div className="flex items-center w-full justify-between gap-2 flex-wrap">
                       {/* <span className="font-bold hover:underline">{string.name}</span> */}
                       <span className="text-gray-400">@{string.User.username }</span>
-                      <span className="text-gray-400">·</span>
-                      <span className="text-gray-400">{string.createdAt}</span>
+                      <span className="text-gray-400 flex flex-col"><h4>{time}</h4><h6 className='text-xs'>{date}</h6></span>
+
                     </div>
                     <button className="text-gray-400 hover:text-orange-400 hover:bg-orange-400/10 rounded-full p-1 transition-colors">
                       <MoreHorizontal className="w-5 h-5" />
@@ -149,7 +179,7 @@ function Feed() {
                           className={`w-[18px] h-[18px] ${string.liked ? 'fill-current' : ''}`}
                         />
                       </div>
-                      {/* <span className="text-sm">{string.likes}</span> */}
+                      <span className="text-sm">{string.likesCount}</span>
                     </button>
 
                     <button className="flex items-center gap-2 text-gray-400 hover:text-orange-400 group transition-colors">
@@ -189,13 +219,14 @@ function Feed() {
                       </div>
                       
                       {/* Comments List */}
-                      <CommentList postId={string.id} />
+                      <CommentList postId={string.id} refetchKey={refetchComments}/>
                     </div>
                   )}
                 </div>
               </div>
             </div>
-          ))}
+            )}
+          )}
         </div>
 
         {/* Add String Section */}
@@ -241,7 +272,7 @@ function Feed() {
               disabled={!newString.trim()}
               className="w-full bg-orange-500 hover:bg-orange-600 disabled:bg-gray-600 disabled:cursor-not-allowed text-white font-bold py-2 px-4 rounded-full transition-colors"
             >
-              Post String
+              {loading ? <Loader2 className='flex '/> :  "Post String"}
             </button>
           </div>
         </div>

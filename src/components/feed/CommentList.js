@@ -1,7 +1,7 @@
 import { getComments } from "@/services/tweetService";
 import { useEffect, useState } from "react";
 
-export default function CommentList({ postId }) {
+export default function CommentList({ postId ,refetchKey}) {
   const [comments, setComments] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -9,7 +9,7 @@ export default function CommentList({ postId }) {
   const fetchComments = async () => {
   try {
     const res = await getComments(postId);
-    setComments(res.response || []); // FIX
+    setComments(res.response || []); 
     console.log(comments);
   } catch (error) {
     console.error("Error fetching comments:", error);
@@ -21,7 +21,7 @@ export default function CommentList({ postId }) {
 
   useEffect(() => {
     if (postId) fetchComments();
-  }, [postId]);
+  }, [postId ,refetchKey]);
 
   if (loading) return <p className="text-sm text-gray-500">Loading comments...</p>;
 
