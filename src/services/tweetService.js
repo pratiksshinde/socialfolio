@@ -5,6 +5,7 @@ export const getComments = async (postId) =>{
     try{
         const comments = await Instance.get(`/public/get_comments/${postId}` )
         console.log(postId,comments);
+        
         return comments.data;
     }catch(error){
         console.error("Error fetching comments:", error);
@@ -19,9 +20,10 @@ export const postComment = async (postId , commenttext) =>{
             postId:postId, 
             comment:commenttext
         });
-        toast("Commented Successfully")
+        toast.success("Commented Successfully");
         return comment.data;
     }catch(error){
+        toast.error("Commente not posted");
         console.error("Error posting comment:", error);
         throw error;
     }
@@ -30,10 +32,10 @@ export const postComment = async (postId , commenttext) =>{
 export const postLike = async (postId) =>{
     try {
         const like = await Instance.post(`/user/like/${postId}`);
-        toast("Liked String");
+        toast.success("Liked String");
         return like.message;
     } catch (error) {
-        toast("Like Unsuccessfull");
+        toast.error("Like Unsuccessfull");
         throw error;
     }   
 } 
@@ -41,10 +43,10 @@ export const postLike = async (postId) =>{
 export const postUnLike = async (postId) =>{
     try {
         const like = await Instance.post(`/user/unlike/${postId}`);
-        toast("like Removed");
+        toast.success("like Removed");
         return like.message;
     } catch (error) {
-        toast("Removal of like Unsuccessfull");
+        toast.error("Removal of like Unsuccessfull");
         throw error;
     }   
 } 
