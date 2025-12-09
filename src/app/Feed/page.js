@@ -29,6 +29,7 @@ function Feed() {
   
   const handleLike = async(id) => {
     await postLike(id);
+    setRefetch(prev => !prev);
     setStrings(strings.map(string => 
       string.id === id 
         ? { ...string, liked: !string.liked, likes: string.liked ? string.likes - 1 : string.likes + 1 }
