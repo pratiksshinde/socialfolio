@@ -1,4 +1,5 @@
 
+import { toast } from "sonner";
 import Instance from "./api";
 
 export const uploadResume = async (formData) => {
@@ -25,8 +26,10 @@ export const login = async (email, password) => {
   try {
     const response = await Instance.post("/user/login", { email, password });
     console.log(response.data)
+    toast.message(response.message);
     return response.data;
   } catch (error) {
+    toast.error(error.message);
     throw error?.response?.data || error;
   }
 };
@@ -34,8 +37,10 @@ export const login = async (email, password) => {
 export const register = async (username, email, password) => {
   try {
     const response = await Instance.post('/user/register', { username, email, password });
+    toast.message(response.message);
     return response.data;
   } catch (error) {
+    toast.warning(error.message);
     throw error?.response?.data || error;
   }
 };
